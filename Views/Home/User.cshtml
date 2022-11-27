@@ -1,0 +1,127 @@
+﻿@model ApiClient.Models.User
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+    
+ 
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            .card {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                max-width: 300px;
+                margin: auto;
+                text-align: center;
+                font-family: arial;
+            }
+
+            .title {
+                color: grey;
+                font-size: 18px;
+            }
+
+            .btnTeams {
+                border: none;
+                outline: 0;
+                display: inline-block;
+                padding: 8px;
+                color: white;
+                background-color: #000;
+                text-align: center;
+                cursor: pointer;
+                width: 100%;
+                font-size: 18px;
+            }
+
+            a {
+                text-decoration: none;
+                font-size: 22px;
+                color: black;
+            }
+
+                .btnTeams:hover, a:hover {
+                    opacity: 0.7;
+                }          
+        </style>
+    </head>>
+    <body>
+        <div id="loading">
+            <img id="loading-image" src="path/to/ajax-loader.gif" alt="Loading..." style="display:none" />
+        </div>
+        <h2 style="text-align:center">User Profile Card</h2>
+        <div class="card">
+            <h1> @Html.DisplayFor(model => model.DisplayName)</h1>
+            <p> @Html.DisplayFor(model => model.UserPrincipalName)</p>
+            <p class="title"> @Html.DisplayFor(model => model.JobTitle)</p>
+
+            <p>
+                @Html.DisplayFor(model => model.OfficeLocation)
+            </p>
+         
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+        </div>
+        @if (Model.Teams.Count > 0)
+        {
+            <div>
+                <p class="btnTeams" >Teams</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Teams[0].DisplayName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Teams[0].Members)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Teams[0].Owners)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Teams)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DisplayName)
+                                </td>
+                                <td>
+                                    <table class="table">
+                                        @foreach (var item2 in item.Members)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item2)
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="table">
+                                        @foreach (var item2 in item.Owners)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item2)
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </body>
+
+
